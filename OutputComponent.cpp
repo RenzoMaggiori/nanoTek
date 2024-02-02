@@ -7,10 +7,3 @@
 
 #include "OutputComponent.hpp"
 
-OutputComponent::OutputComponent()
-{
-}
-
-OutputComponent::~OutputComponent()
-{
-}

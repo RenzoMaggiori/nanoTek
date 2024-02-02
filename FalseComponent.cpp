@@ -7,10 +7,3 @@
 
 #include "FalseComponent.hpp"
 
-FalseComponent::FalseComponent()
-{
-}
-
-FalseComponent::~FalseComponent()
-{
-}
