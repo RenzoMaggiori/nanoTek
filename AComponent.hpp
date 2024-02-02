@@ -9,6 +9,12 @@ class AComponent: public IComponent
     public:
         AComponent();
         ~AComponent();
+        enum componentType {
+            AndComponent,
+            FalseComponent,
+            TrueComponent,
+            NotComponent,
+        };
 };
 
 #endif
