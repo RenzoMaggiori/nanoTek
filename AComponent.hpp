@@ -7,14 +7,7 @@ class AComponent: public IComponent
 {
     private:
     public:
-        AComponent();
-        ~AComponent();
-        enum componentType {
-            AndComponent,
-            FalseComponent,
-            TrueComponent,
-            NotComponent,
-        };
+        virtual ~AComponent() = default;
 };
 
 #endif

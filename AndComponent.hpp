@@ -8,8 +8,8 @@ class AndComponent: public AComponent
     private:
         /* data */
     public:
-        AndComponent(/* args */);
-        ~AndComponent();
+        AndComponent() = default;
+        ~AndComponent() = default;
 };
 
 #endif

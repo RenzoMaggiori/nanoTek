@@ -5,8 +5,7 @@ class IComponent
 {
     private:
     public:
-        IComponent() = default;
-        ~IComponent() = default;
+        virtual ~IComponent() = default;
 		virtual void compute(std::size_t pin) = 0;
 		virtual void simulate() = 0;
 		virtual getLink(std::size_t pin) const = 0;

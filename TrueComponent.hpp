@@ -7,8 +7,8 @@ class TrueComponent: public AComponent
 {
     private:
     public:
-        TrueComponent(/* args */);
-        ~TrueComponent();
+        TrueComponent() = default;
+        ~TrueComponent() = default;
 };
 
 #endif
