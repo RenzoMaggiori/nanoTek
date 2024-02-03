@@ -13,10 +13,12 @@ enum types {
 class AComponent: public IComponent
 {
     private:
-        std::map<size_t, AComponent *> _links;
-        std::pair<size_t, size_t> _pins;
+        std::map<std::size_t, AComponent *> _links;
+        std::pair<std::size_t, std::size_t> _pins;
     public:
         virtual ~AComponent() = default;
+        std::size_t compute(std::size_t pin);
+        void setPins(std::size_t input, std::size_t output);
 };
 
 #endif
