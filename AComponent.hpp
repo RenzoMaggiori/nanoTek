@@ -14,6 +14,7 @@ class AComponent: public IComponent
 {
     private:
         std::map<size_t, AComponent *> _links;
+        std::pair<size_t, size_t> _pins;
     public:
         virtual ~AComponent() = default;
 };
