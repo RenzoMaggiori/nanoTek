@@ -2,7 +2,7 @@
 #define ICOMPONENT_HPP
 
 #include <string>
-
+#include <map>
 class Links;
 
 enum Types {
@@ -21,7 +21,8 @@ namespace nts {
 			//virtual Links getLink(std::size_t pin) const = 0;
 			virtual Types getStatus() const = 0;
 			virtual void setLink(std::size_t pin, nts::IComponent &component, std::size_t componentPin) = 0;
-
+			std::pair<std::size_t, std::size_t> _pins;
+			std::map<std::size_t, Links *> _links;
 	};
 }
 

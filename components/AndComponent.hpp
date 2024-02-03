@@ -11,6 +11,7 @@ namespace nts {
 			AndComponent();
 			~AndComponent() = default;
 			Types getStatus() const;
+			void setLink(std::size_t pin, nts::IComponent &component, std::size_t componentPin);
 	};
 }
 

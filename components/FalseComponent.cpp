@@ -13,5 +13,5 @@ nts::FalseComponent::FalseComponent() {
 
 Types nts::FalseComponent::getStatus() const
 {
-	return Types::UNDEFINED;
+	return Types::FALSE;
 }
