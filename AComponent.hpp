@@ -14,6 +14,7 @@ class AComponent: public IComponent
 {
     private:
         std::map<std::size_t, AComponent *> _links;
+		// First pair correspond to input pins and second one corresponds output pins
         std::pair<std::size_t, std::size_t> _pins;
     public:
         virtual ~AComponent() = default;

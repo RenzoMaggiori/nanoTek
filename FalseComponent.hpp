@@ -12,7 +12,7 @@
 
 class FalseComponent: public AComponent {
 	public:
-		FalseComponent() = default;
+		FalseComponent();
 		~FalseComponent() = default;
 
 	protected:
