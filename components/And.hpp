@@ -14,7 +14,6 @@ namespace nts {
     class And: public AComponent {
         public:
             And();
-            ~And();
             pinType getPinType(std::size_t pin) override;
             void updateOutputPin() override;
         protected:

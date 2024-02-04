@@ -9,15 +9,8 @@
 
 nts::And::And() {
     for (size_t i = 1; i < 4; i++) {
-        OutputType *status = new OutputType(OutputType::UNDEFINED);
+        std::shared_ptr<nts::OutputType> status = std::make_shared<nts::OutputType>(OutputType::UNDEFINED);
         _pins[i] = status;
-    }
-}
-
-nts::And::~And() {
-    if (_pins[3]) {
-        delete _pins[3];
-        _pins[3] = nullptr;
     }
 }
 
@@ -31,20 +24,18 @@ nts::pinType nts::And::getPinType(std::size_t pin) {
 }
 
 void nts::And::updateOutputPin() {
-    OutputType *status;
-    if (_pins[3])
-        delete _pins[3];
+    std::shared_ptr<nts::OutputType> status;
 
     if (*(_pins[1]) == OutputType::TRUE && *(_pins[2]) == OutputType::TRUE) {
-        status = new OutputType(OutputType::TRUE);
+        status = std::make_shared<nts::OutputType>(OutputType::TRUE);
         _pins[3] = status;
         return;
     }
     if (*(_pins[1]) == OutputType::FALSE || *(_pins[2]) == OutputType::FALSE) {
-        status = new OutputType(OutputType::FALSE);
+        status = std::make_shared<nts::OutputType>(OutputType::FALSE);
         _pins[3] = status;
         return;
     }
-    status = new OutputType(OutputType::UNDEFINED);
+    status = std::make_shared<nts::OutputType>(OutputType::UNDEFINED);
     _pins[3] = status;
 }

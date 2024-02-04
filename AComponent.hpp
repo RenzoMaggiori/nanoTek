@@ -10,14 +10,15 @@
 
 #include "IComponent.hpp"
 #include "Link.hpp"
+#include <memory>
 #include <vector>
 #include <exception>
 
 namespace nts {
     class AComponent: public IComponent {
         protected:
-            std::map<std::size_t, OutputType *> _pins;
-            std::map<std::size_t, Link *> _links;
+            std::map<std::size_t,  std::shared_ptr<OutputType>> _pins;
+            std::map<std::size_t, std::shared_ptr<Link>> _links;
         public:
             // Nested
             class Error: public std::exception
@@ -38,8 +39,8 @@ namespace nts {
             void setLink(std::size_t pin, IComponent &component, std::size_t componentPin) override;
 
             // Getters
-            std::map<std::size_t, nts::OutputType *> &getPins() override;
-            std::map<std::size_t, Link *> &getLinks() override;
+            std::map<std::size_t, std::shared_ptr<nts::OutputType>> &getPins() override;
+            std::map<std::size_t, std::shared_ptr<Link>> &getLinks() override;
 
             // Member
             // void simulate(std::size_t tick);

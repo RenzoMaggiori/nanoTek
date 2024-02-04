@@ -9,15 +9,8 @@
 
 nts::Not::Not() {
     for (size_t i = 1; i < 3; i++) {
-        OutputType *status = new OutputType(OutputType::UNDEFINED);
+        std::shared_ptr<nts::OutputType> status = std::make_shared<nts::OutputType>(OutputType::UNDEFINED);
         _pins[i] = status;
-    }
-}
-
-nts::Not::~Not() {
-    if (_pins[2]) {
-        delete _pins[2];
-        _pins[2] = nullptr;
     }
 }
 
@@ -31,20 +24,18 @@ nts::pinType nts::Not::getPinType(std::size_t pin) {
 }
 
 void nts::Not::updateOutputPin() {
-    OutputType *status;
-     if (_pins[2])
-        delete _pins[2];
+    std::shared_ptr<nts::OutputType> status;
 
     if (*(_pins[1]) == OutputType::TRUE) {
-        status = new OutputType(OutputType::FALSE);
+        status = std::make_shared<nts::OutputType>(OutputType::FALSE);
         _pins[2] = status;
         return;
     }
     if (*(_pins[1]) == OutputType::FALSE) {
-        status = new OutputType(OutputType::TRUE);
+        status = std::make_shared<nts::OutputType>(OutputType::TRUE);
         _pins[2] = status;
         return;
     }
-    status = new OutputType(OutputType::UNDEFINED);
+        status = std::make_shared<nts::OutputType>(OutputType::UNDEFINED);
     _pins[2] = status;
 }

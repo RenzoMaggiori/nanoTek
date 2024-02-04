@@ -14,7 +14,6 @@ namespace nts {
     class Not: public AComponent {
         public:
             Not();
-            ~Not();
             pinType getPinType(std::size_t pin) override;
             void updateOutputPin() override;
         protected:

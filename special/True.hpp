@@ -14,7 +14,6 @@ namespace nts {
     class True: public AComponent {
         public:
             True();
-            ~True();
             pinType getPinType(std::size_t pin) override;
             void updateOutputPin() override;
         protected:

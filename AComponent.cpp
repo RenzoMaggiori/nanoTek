@@ -6,12 +6,13 @@
 */
 
 #include "AComponent.hpp"
+#include <memory>
 
-std::map<std::size_t, nts::OutputType *> &nts::AComponent::getPins() {
+std::map<std::size_t, std::shared_ptr<nts::OutputType>> &nts::AComponent::getPins() {
     return _pins;
 }
 
-std::map<std::size_t, nts::Link *> &nts::AComponent::getLinks() {
+std::map<std::size_t, std::shared_ptr<nts::Link>> &nts::AComponent::getLinks() {
     return _links;
 }
 
@@ -20,13 +21,9 @@ void nts::AComponent::setLink(std::size_t pin, IComponent &component, std::size_
     if (pin > _pins.size()) throw Error("Pin outside of bounds.");
     if (componentPin > component.getPins().size()) throw Error("Component pin outside of bounds.");
 
-    std::map<std::size_t, nts::Link *> componentLinks = component.getLinks();
-    Link *newLink = new Link(*this, component, componentPin, pin);
+    std::map<std::size_t, std::shared_ptr<Link>> componentLinks = component.getLinks();
+    std::shared_ptr<Link> newLink = std::make_shared<Link>(*this, component, componentPin, pin);
 
-    if (_links[pin])
-        delete _links[pin];
-    if (componentLinks[componentPin])
-        delete  componentLinks[componentPin];
     _links[pin] = newLink;
     componentLinks[componentPin] = newLink;
 
