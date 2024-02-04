@@ -8,17 +8,16 @@
 #include "Not.hpp"
 
 nts::Not::Not() {
-    std::map<std::size_t, OutputType *> &pins = this->getPins();
     for (size_t i = 1; i < 3; i++) {
         OutputType *status = new OutputType(OutputType::UNDEFINED);
-        pins[i] = status;
+        _pins[i] = status;
     }
 }
 
 nts::Not::~Not() {
-    std::map<std::size_t, OutputType *> &pins = this->getPins();
-    for (std::size_t i = 1; i < 3; i++) {
-        delete pins[i];
+    if (_pins[2]) {
+        delete _pins[2];
+        _pins[2] = nullptr;
     }
 }
 
@@ -33,18 +32,19 @@ nts::pinType nts::Not::getPinType(std::size_t pin) {
 
 void nts::Not::updateOutputPin() {
     OutputType *status;
-    std::map<std::size_t, OutputType *> &pins = this->getPins();
-    
-    if (*(pins[1]) == OutputType::TRUE) {
+     if (_pins[2])
+        delete _pins[2];
+
+    if (*(_pins[1]) == OutputType::TRUE) {
         status = new OutputType(OutputType::FALSE);
-        pins[2] = status;
+        _pins[2] = status;
         return;
     }
-    if (*(pins[1]) == OutputType::FALSE) {
+    if (*(_pins[1]) == OutputType::FALSE) {
         status = new OutputType(OutputType::TRUE);
-        pins[2] = status;
+        _pins[2] = status;
         return;
     }
     status = new OutputType(OutputType::UNDEFINED);
-    pins[2] = status;
+    _pins[2] = status;
 }

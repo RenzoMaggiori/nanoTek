@@ -12,7 +12,10 @@ nts::False::False() {
     this->getPins()[1] = status;
 }
 nts::False::~False() {
-    delete this->getPins()[1];
+    if (_pins[1]) {
+        delete _pins[1];
+        _pins[1] = nullptr;
+    }
 }
 
 nts::pinType nts::False::getPinType(std::size_t pin) {

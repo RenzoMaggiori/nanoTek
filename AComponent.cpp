@@ -20,9 +20,16 @@ void nts::AComponent::setLink(std::size_t pin, IComponent &component, std::size_
     if (pin > _pins.size()) throw Error("Pin outside of bounds.");
     if (componentPin > component.getPins().size()) throw Error("Component pin outside of bounds.");
 
+    std::map<std::size_t, nts::Link *> componentLinks = component.getLinks();
     Link *newLink = new Link(*this, component, componentPin, pin);
-    this->getLinks()[pin] = newLink;
-    component.getLinks()[componentPin] = newLink;
+
+    if (_links[pin])
+        delete _links[pin];
+    if (componentLinks[componentPin])
+        delete  componentLinks[componentPin];
+    _links[pin] = newLink;
+    componentLinks[componentPin] = newLink;
+
     this->updateOutputPin();
 }
 

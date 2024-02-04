@@ -30,7 +30,6 @@ namespace nts {
                         return _msg.c_str();
                     }
             };
-
             // Virtual
             virtual pinType getPinType(std::size_t pin) = 0;
             virtual void updateOutputPin() = 0;

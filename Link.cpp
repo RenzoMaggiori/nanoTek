@@ -12,8 +12,3 @@ nts::Link::Link(IComponent &inputComponent, IComponent &outputComponent, std::si
 {
     inputComponent.getPins()[inputPin] = outputComponent.getPins()[outputPin];
 }
-
-nts::Link::~Link() {
-    // Release memory for _status in the destructor
-    delete _status;
-}

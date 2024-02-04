@@ -15,7 +15,7 @@ namespace nts
     class Link {
         public:
             Link(IComponent &inputComponent, IComponent &outputComponent, std::size_t outputPin, std::size_t inputPin);
-            ~Link();
+            ~Link() = default;
 
         protected:
             OutputType *_status;
