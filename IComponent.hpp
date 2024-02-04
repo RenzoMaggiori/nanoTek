@@ -41,6 +41,7 @@ namespace nts {
 
             // virtual Member
             //virtual void simulate(std::size_t tick) = 0;
+            virtual void updateOutputPin() = 0;
             virtual OutputType compute(std::size_t pin) = 0;
             
         protected:

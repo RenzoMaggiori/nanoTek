@@ -36,7 +36,7 @@ namespace nts {
             virtual void updateOutputPin() = 0;
 
             // Setters
-            void setLink(std::size_t pin, IComponent &component, std::size_t componentPin);
+            void setLink(std::size_t pin, IComponent &component, std::size_t componentPin) override;
 
             // Getters
             std::map<std::size_t, nts::OutputType *> &getPins() override;
@@ -44,26 +44,10 @@ namespace nts {
 
             // Member
             // void simulate(std::size_t tick);
-            OutputType compute(std::size_t pin);
+            OutputType compute(std::size_t pin) override;
 
         private:
     };
 }
-    // And component
-    // std::map<2, Link *>
-
-    // True component
-    // std::map<1, Link *>
-
-    // setLink(pin, component, componentPin);
-    // linked = Link(componentInput, componentOutput);
-
-    // This._links[pin] = linked;
-    // component._links[componentPin] = linked;
-
-    // Links
-    // OutputType *
-    // InputClass
-    // Outputclass
 
 #endif
