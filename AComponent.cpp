@@ -1,38 +1,33 @@
 /*
-** EPITECH PROJECT, 2023
+** EPITECH PROJECT, 2024
 ** nanoTek
 ** File description:
-** AComponent.cpp
+** AComponent
 */
 
 #include "AComponent.hpp"
-#include "Links.hpp"
-#include <iostream>
 
-void AComponent::setLink(std::size_t pin, nts::IComponent &component, std::size_t componentPin) {
-	if (pin > _pins.first + _pins.second) return; // implement error handling
-	// std::cout << "Pin: " << pin << " Status: " << component.getStatus() << std::endl;
-	if (_links[pin])
-		delete _links[pin];
-	_links[pin] = new Links(componentPin, &component, component.getStatus());
+std::map<std::size_t, nts::OutputType *> &nts::AComponent::getPins() {
+    return _pins;
 }
 
-std::size_t AComponent::compute(std::size_t pin) {
-	if (_links.size() < pin)
-		return Types::UNDEFINED;
-	// std::cout << "PIN compute: " << pin << std::endl;
-	// std::cout << "map size: " << _links.size() << std::endl;
-	// for (auto &kv: _links) {
-	// 	std::cout << kv.first << "status: " << kv.second->getStatus() << std::endl;
-	// }
-	return _links[pin]->getStatus();
+std::map<std::size_t, nts::Link *> &nts::AComponent::getLinks() {
+    return _links;
 }
 
-void AComponent::setPins(std::size_t input, std::size_t output) {
-	this->_pins.first = input;
-	this->_pins.second = output;
+
+void nts::AComponent::setLink(std::size_t pin, IComponent &component, std::size_t componentPin) {
+    if (pin > _pins.size()) throw Error("Pin outside of bounds.");
+    if (componentPin > component.getPins().size()) throw Error("Component pin outside of bounds.");
+
+    Link *newLink = new Link(*this, component, componentPin, pin);
+    this->getLinks()[pin] = newLink;
+    component.getLinks()[componentPin] = newLink;
+    this->updateOutputPin();
 }
 
-void AComponent::setChildLink(IComponent *component, std::size_t pin, std::size_t parentPin) {
-	component->_links[pin] = new Links(parentPin, this);
+nts::OutputType nts::AComponent::compute(std::size_t pin) {
+    if (pin > _pins.size()) Error("Invalid pin.");
+    return *(_pins[pin]);
 }
+
