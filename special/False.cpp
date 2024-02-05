@@ -8,7 +8,7 @@
 #include "False.hpp"
 
 nts::False::False() {
-    std::shared_ptr<nts::OutputType> status = std::make_shared<nts::OutputType>(OutputType::FALSE);
+    std::shared_ptr<nts::Tristate> status = std::make_shared<nts::Tristate>(Tristate::False);
     this->getPins()[1] = status;
 }
 

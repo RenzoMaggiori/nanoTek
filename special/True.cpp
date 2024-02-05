@@ -8,7 +8,7 @@
 #include "True.hpp"
 
 nts::True::True() {
-    std::shared_ptr<nts::OutputType> status = std::make_shared<nts::OutputType>(OutputType::TRUE);
+    std::shared_ptr<nts::Tristate> status = std::make_shared<nts::Tristate>(Tristate::True);
     this->getPins()[1] = status;
 }
 

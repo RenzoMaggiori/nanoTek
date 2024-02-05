@@ -15,9 +15,14 @@
 #include <exception>
 
 namespace nts {
+    enum pinType {
+        INPUT,
+        OUTPUT,
+        NONE
+    };
     class AComponent: public IComponent {
         protected:
-            std::map<std::size_t,  std::shared_ptr<OutputType>> _pins;
+            std::map<std::size_t,  std::shared_ptr<Tristate>> _pins;
             std::map<std::size_t, std::shared_ptr<Link>> _links;
         public:
             // Nested
@@ -39,12 +44,12 @@ namespace nts {
             void setLink(std::size_t pin, IComponent &component, std::size_t componentPin) override;
 
             // Getters
-            std::map<std::size_t, std::shared_ptr<nts::OutputType>> &getPins() override;
-            std::map<std::size_t, std::shared_ptr<Link>> &getLinks() override;
+            std::map<std::size_t, std::shared_ptr<nts::Tristate>> &getPins();
+            std::map<std::size_t, std::shared_ptr<Link>> &getLinks();
 
             // Member
             // void simulate(std::size_t tick);
-            OutputType compute(std::size_t pin) override;
+            Tristate compute(std::size_t pin);
 
         private:
     };

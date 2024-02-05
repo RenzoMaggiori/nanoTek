@@ -8,7 +8,7 @@
 #include "AComponent.hpp"
 #include <memory>
 
-std::map<std::size_t, std::shared_ptr<nts::OutputType>> &nts::AComponent::getPins() {
+std::map<std::size_t, std::shared_ptr<nts::Tristate>> &nts::AComponent::getPins() {
     return _pins;
 }
 
@@ -30,7 +30,7 @@ void nts::AComponent::setLink(std::size_t pin, IComponent &component, std::size_
     this->updateOutputPin();
 }
 
-nts::OutputType nts::AComponent::compute(std::size_t pin) {
+nts::Tristate nts::AComponent::compute(std::size_t pin) {
     if (pin > _pins.size()) Error("Invalid pin.");
     return *(_pins[pin]);
 }

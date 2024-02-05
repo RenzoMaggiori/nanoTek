@@ -18,7 +18,7 @@ namespace nts
             Link(IComponent &inputComponent, IComponent &outputComponent, std::size_t outputPin, std::size_t inputPin);
 
         protected:
-            std::shared_ptr<OutputType> _status;
+            std::shared_ptr<Tristate> _status;
             IComponent &_inputComponent;
             IComponent &_outputComponent;
         private:

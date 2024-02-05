@@ -9,7 +9,7 @@
 
 nts::And::And() {
     for (size_t i = 1; i < 4; i++) {
-        std::shared_ptr<nts::OutputType> status = std::make_shared<nts::OutputType>(OutputType::UNDEFINED);
+        std::shared_ptr<nts::Tristate> status = std::make_shared<nts::Tristate>(Tristate::Undefined);
         _pins[i] = status;
     }
 }
@@ -24,18 +24,18 @@ nts::pinType nts::And::getPinType(std::size_t pin) {
 }
 
 void nts::And::updateOutputPin() {
-    std::shared_ptr<nts::OutputType> status;
+    std::shared_ptr<nts::Tristate> status;
 
-    if (*(_pins[1]) == OutputType::TRUE && *(_pins[2]) == OutputType::TRUE) {
-        status = std::make_shared<nts::OutputType>(OutputType::TRUE);
+    if (*(_pins[1]) == Tristate::True && *(_pins[2]) == Tristate::True) {
+        status = std::make_shared<nts::Tristate>(Tristate::True);
         _pins[3] = status;
         return;
     }
-    if (*(_pins[1]) == OutputType::FALSE || *(_pins[2]) == OutputType::FALSE) {
-        status = std::make_shared<nts::OutputType>(OutputType::FALSE);
+    if (*(_pins[1]) == Tristate::False || *(_pins[2]) == Tristate::False) {
+        status = std::make_shared<nts::Tristate>(Tristate::False);
         _pins[3] = status;
         return;
     }
-    status = std::make_shared<nts::OutputType>(OutputType::UNDEFINED);
+    status = std::make_shared<nts::Tristate>(Tristate::Undefined);
     _pins[3] = status;
 }
