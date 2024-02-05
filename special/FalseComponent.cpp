@@ -2,10 +2,10 @@
 ** EPITECH PROJECT, 2024
 ** nanoTek
 ** File description:
-** False
+** FalseComponent
 */
 
-#include "False.hpp"
+#include "FalseComponent.hpp"
 
 nts::FalseComponent::FalseComponent() {
     std::shared_ptr<nts::Tristate> status = std::make_shared<nts::Tristate>(Tristate::False);
