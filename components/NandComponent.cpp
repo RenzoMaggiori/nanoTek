@@ -7,14 +7,14 @@
 
 #include "NandComponent.hpp"
 
-nts::Nand::Nand() {
+nts::NandComponent::NandComponent() {
     for (size_t i = 1; i < 4; i++) {
         std::shared_ptr<nts::Tristate> status = std::make_shared<nts::Tristate>(Tristate::Undefined);
         _pins[i] = status;
     }
 }
 
-nts::pinType nts::Nand::getPinType(std::size_t pin) {
+nts::pinType nts::NandComponent::getPinType(std::size_t pin) {
     if (pin > 3 || pin < 1) throw Error("Invalid pin.");
     if (pin < 3)
         return pinType::INPUT;
@@ -23,7 +23,7 @@ nts::pinType nts::Nand::getPinType(std::size_t pin) {
     return pinType::NONE;
 }
 
-void nts::Nand::updateOutputPin() {
+void nts::NandComponent::updateOutputPin() {
     std::shared_ptr<nts::Tristate> status;
 
     if (*(_pins[1]) == Tristate::True && *(_pins[2]) == Tristate::True) {
