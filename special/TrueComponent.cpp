@@ -2,10 +2,10 @@
 ** EPITECH PROJECT, 2024
 ** nanoTek
 ** File description:
-** True
+** TrueComponent
 */
 
-#include "True.hpp"
+#include "TrueComponent.hpp"
 
 nts::TrueComponnet::TrueComponnet() {
     std::shared_ptr<nts::Tristate> status = std::make_shared<nts::Tristate>(Tristate::True);

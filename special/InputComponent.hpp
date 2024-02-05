@@ -2,19 +2,19 @@
 ** EPITECH PROJECT, 2024
 ** nanoTek
 ** File description:
-** Input
+** InputComponent
 */
 
-#ifndef INPUT_HPP_
-#define INPUT_HPP_
+#ifndef INPUTCOMPONENT_HPP_
+#define INPUTCOMPONENT_HPP_
 
 #include "../AComponent.hpp"
 
 namespace nts {
-    class Input: public AComponent {
+    class InputComponent: public AComponent {
         public:
-            Input();
-            ~Input();
+            InputComponent();
+            ~InputComponent();
 
         protected:
         private:

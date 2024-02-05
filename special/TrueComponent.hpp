@@ -2,18 +2,18 @@
 ** EPITECH PROJECT, 2024
 ** nanoTek
 ** File description:
-** And
+** TrueComponent
 */
 
-#ifndef AND_HPP_
-#define AND_HPP_
+#ifndef TRUECOMPONENT_HPP_
+#define TRUECOMPONENT_HPP_
 
 #include "../AComponent.hpp"
 
 namespace nts {
-    class And: public AComponent {
+    class TrueComponnet: public AComponent {
         public:
-            And();
+            TrueComponnet();
             pinType getPinType(std::size_t pin) override;
             void updateOutputPin() override;
         protected:

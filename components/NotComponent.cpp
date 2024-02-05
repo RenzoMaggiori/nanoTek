@@ -2,19 +2,20 @@
 ** EPITECH PROJECT, 2024
 ** nanoTek
 ** File description:
-** Not
+** NotComponent
 */
 
-#include "Not.hpp"
+#include "NotComponent.hpp"
 
-nts::Not::Not() {
+
+nts::NotComponent::NotComponent() {
     for (size_t i = 1; i < 3; i++) {
         std::shared_ptr<nts::Tristate> status = std::make_shared<nts::Tristate>(Tristate::Undefined);
         _pins[i] = status;
     }
 }
 
-nts::pinType nts::Not::getPinType(std::size_t pin) {
+nts::pinType nts::NotComponent::getPinType(std::size_t pin) {
     if (pin > 2 || pin < 1) throw Error("Invalid pin.");
     if (pin == 1)
         return pinType::INPUT;
@@ -23,7 +24,7 @@ nts::pinType nts::Not::getPinType(std::size_t pin) {
     return pinType::NONE;
 }
 
-void nts::Not::updateOutputPin() {
+void nts::NotComponent::updateOutputPin() {
     std::shared_ptr<nts::Tristate> status;
 
     if (*(_pins[1]) == Tristate::True) {

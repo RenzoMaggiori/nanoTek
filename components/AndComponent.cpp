@@ -2,19 +2,19 @@
 ** EPITECH PROJECT, 2024
 ** nanoTek
 ** File description:
-** And
+** AndComponent
 */
 
-#include "And.hpp"
+#include "AndComponent.hpp"
 
-nts::And::And() {
+nts::AndComponent::AndComponent() {
     for (size_t i = 1; i < 4; i++) {
         std::shared_ptr<nts::Tristate> status = std::make_shared<nts::Tristate>(Tristate::Undefined);
         _pins[i] = status;
     }
 }
 
-nts::pinType nts::And::getPinType(std::size_t pin) {
+nts::pinType nts::AndComponent::getPinType(std::size_t pin) {
     if (pin > 3 || pin < 1) throw Error("Invalid pin.");
     if (pin < 3)
         return pinType::INPUT;
@@ -23,7 +23,7 @@ nts::pinType nts::And::getPinType(std::size_t pin) {
     return pinType::NONE;
 }
 
-void nts::And::updateOutputPin() {
+void nts::AndComponent::updateOutputPin() {
     std::shared_ptr<nts::Tristate> status;
 
     if (*(_pins[1]) == Tristate::True && *(_pins[2]) == Tristate::True) {
