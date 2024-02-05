@@ -12,9 +12,9 @@
 
 namespace nts
 {
-    class False: public AComponent{
+    class FalseComponent: public AComponent{
         public:
-            False();
+            FalseComponent();
             pinType getPinType(std::size_t pin) override;
             void updateOutputPin() override;
         protected:

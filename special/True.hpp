@@ -11,9 +11,9 @@
 #include "../AComponent.hpp"
 
 namespace nts {
-    class True: public AComponent {
+    class TrueComponnet: public AComponent {
         public:
-            True();
+            TrueComponnet();
             pinType getPinType(std::size_t pin) override;
             void updateOutputPin() override;
         protected:

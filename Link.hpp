@@ -8,7 +8,7 @@
 #ifndef LINK_HPP_
 #define LINK_HPP_
 
-#include "AComponent.hpp"
+#include "IComponent.hpp"
 #include <memory>
 
 namespace nts
