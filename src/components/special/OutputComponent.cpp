@@ -6,7 +6,6 @@
 */
 
 #include "OutputComponent.hpp"
-#include <iostream>
 
 nts::OutputComponent::OutputComponent() {
     this->getPins()[1].first = std::make_shared<nts::Tristate>(Tristate::Undefined);
@@ -14,12 +13,17 @@ nts::OutputComponent::OutputComponent() {
     _type = nts::pinType::OUTPUT;
 }
 
-nts::pinType nts::OutputComponent::getPinType(std::size_t pin) {
-    if (pin != 1) throw nts::Error("Invalid pin.");
-    return pinType::INPUT;
-}
-
 void nts::OutputComponent::simulate(std::size_t tick) {
     (void) tick;
     return;
+}
+
+bool nts::OutputComponent::setInput(nts::Tristate status)
+{
+    if (_pins[1].second == nts::pinType::HYBRID) {
+        *_pins[1].first.get() = status;
+        return true;
+    } else {
+        return false;
+    }
 }

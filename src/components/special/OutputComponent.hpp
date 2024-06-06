@@ -8,14 +8,14 @@
 #ifndef OUTPUTCOMPONENT_HPP_
 #define OUTPUTCOMPONENT_HPP_
 
-#include "../../AComponent.hpp"
+#include "AComponent.hpp"
 
 namespace nts {
     class OutputComponent: public AComponent {
         public:
             OutputComponent();
-            pinType getPinType(std::size_t pin) override;
             void simulate(std::size_t tick) override;
+            bool setInput(nts::Tristate) override;
         protected:
         private:
     };

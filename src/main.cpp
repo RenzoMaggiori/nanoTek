@@ -13,22 +13,33 @@
 
 void loopProgram(std::string line, nts::Circuit *circuit)
 {
+    bool valid = false;
     while (std::getline(std::cin, line)) {
-        if (line == "display")
+        if (line == "display") {
             circuit->display();
-        if (line == "simulate")
+            valid = true;
+        }
+        if (line == "simulate") {
             circuit->simulate(circuit->getTicks() + 1);
-        if (std::strstr(line.c_str(), "="))
+            valid = true;
+        }
+        if (std::strstr(line.c_str(), "=")) {
             circuit->setComponentsStatus(line);
+            valid = true;
+        }
         if (line == "loop") {
             while (1) {
                 circuit->simulate(circuit->getTicks() + 1);
                 circuit->display();
             }
+            valid = true;
         }
         if (line == "exit")
             break;
+        if (!valid)
+            throw nts::Error("Invalid command");
         std::cout << "> ";
+        valid = false;
     }
 }
 
@@ -45,6 +56,7 @@ int initProgram(const char *argv[])
             circuit->addComponent(chip.second, factory.createComponent(chip.first));
         std::cout << "> ";
         circuit->createLinks(parser.getLinks());
+        circuit->simulate(circuit->getTicks());
         //loop program
         loopProgram(line, circuit);
     }

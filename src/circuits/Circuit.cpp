@@ -6,6 +6,9 @@
 */
 
 #include "Circuit.hpp"
+#include <cstddef>
+#include <iterator>
+#include <map>
 #include <memory>
 #include <iostream>
 #include <string>
@@ -20,6 +23,46 @@ std::map<std::string, std::unique_ptr<nts::IComponent>> &nts::Circuit::getCompon
     return _components;
 }
 
+std::map<nts::AComponent*, std::size_t> nts::Circuit::loopThroughLinks(nts::AComponent *castComponent,
+    std::map<nts::AComponent*, std::size_t> &componentMap, std::size_t priority)
+{
+    for (unsigned int i = 0; i < castComponent->getOutputLink().size(); i++) {
+        AComponent* nextComponent = static_cast<AComponent*>(castComponent->getOutputLink()[i]);
+        if (nextComponent->getPriority() <= priority) {
+            auto it = componentMap.find(nextComponent);
+            if (it != componentMap.end()) {
+                componentMap.erase(it);
+            }
+            priority++;
+            nextComponent->setPriority(priority);
+            componentMap.insert({nextComponent, priority});
+        }
+        componentMap = loopThroughLinks(nextComponent, componentMap, priority);
+    }
+    return componentMap;
+}
+
+void nts::Circuit::setSortedComponents() {
+    AComponent *castComponent = nullptr;
+    std::map<nts::AComponent*, std::size_t> componentMap;
+
+    //Loop all components
+    for (auto &component : _components) {
+        castComponent = static_cast<AComponent*>(component.second.get());
+        //Acces ONLY the ones which are of type INPUT e.g.(True, False, Clock, ...)
+        if (castComponent->getPins().size() == 1) {
+            castComponent->setPriority(1); // 1
+            componentMap.insert({castComponent, 1});
+            //Iterate over all the links setting the priority n + 1 e.g. (True(1)->Not(2)->And(3)...)
+            componentMap = loopThroughLinks(castComponent, componentMap, 1);
+        }
+    }
+    //Insert the components into a multimap sorted by priority
+    for (auto &component : componentMap) {
+        this->_sortedComponents. insert({component.second, component.first});
+    }
+}
+
 void nts::Circuit::display() {
     AComponent* derivedComponent = nullptr;
     std::cout << "tick: " << _ticks << std::endl << "input(s):" << std::endl;
@@ -31,7 +74,7 @@ void nts::Circuit::display() {
 
         for (auto &it: _components) {
             derivedComponent = dynamic_cast<AComponent*>(it.second.get());
-            if(derivedComponent->getType() == type) {
+            if(derivedComponent->getType() == type ) {
                 nts::Tristate status = it.second->compute(1);
                 std::cout << "  " << it.first << ": " << ((status == nts::Tristate::Undefined) ? "U" : std::to_string(status))  << std::endl;
             }
@@ -51,27 +94,28 @@ void nts::Circuit::createLinks(std::deque<std::pair<std::pair<std::string, size_
             _components[destination]->setLink(destinationPin, *_components[source].get(), sourcePin);
         }
     }
+    setSortedComponents();
 }
 
 void nts::Circuit::simulate(std::size_t ticks) {
     AComponent* derivedComponent = nullptr;
     std::vector<std::string> removeUpdated;
-
     for (auto &update: _inputStatus) {
         if (_components.find(update.first) != _components.end()) {
             derivedComponent = dynamic_cast<AComponent*>(_components.find(update.first)->second.get());
-            if (derivedComponent->getType() != nts::pinType::INPUT) throw nts::Error("Invalid component match");
-            derivedComponent->setInput(update.second);
-            removeUpdated.push_back(update.first);
+            if (derivedComponent->setInput(update.second) == false)
+                    throw nts::Error("Invalid component match");
+            else
+                removeUpdated.push_back(update.first);
+
         } else
             throw nts::Error("Invalid component match");
     }
     for (const auto &key : removeUpdated)
         _inputStatus.erase(key);
     derivedComponent = nullptr;
-    for (auto &component: _components) {
-        derivedComponent = dynamic_cast<AComponent*>(component.second.get());
-        derivedComponent->simulate(ticks);
+    for (auto &component: _sortedComponents) {
+        component.second ->simulate(ticks);
     }
     _ticks = ticks;
 }
@@ -113,5 +157,8 @@ void nts::Circuit::setComponentsStatus(std::string line) {
                 throw nts::Error("Invalid input value");
         }
     }
-    _inputStatus[source] = pinValue;
+    if (_components.find(source) !=_components.end())
+        _inputStatus[source] = pinValue;
+    else
+        throw nts::Error("Invalid input value");
 }

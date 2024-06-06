@@ -10,20 +10,13 @@
 
 nts::NotComponent::NotComponent() {
     nts::pinType type = nts::pinType::INPUT;
-
+    std::shared_ptr<nts::Tristate> status;
     for (size_t i = 1; i < 3; i++) {
         if (i == 2)
             type = nts::pinType::OUTPUT;
-        std::shared_ptr<nts::Tristate> status = std::make_shared<nts::Tristate>(Tristate::Undefined);
-
-        // Store the shared pointer and type in the pair associated with key 'i'
+        status = std::make_shared<nts::Tristate>(Tristate::Undefined);
         _pins[i] = std::make_pair(status, type);
     }
-}
-
-nts::pinType nts::NotComponent::getPinType(std::size_t pin) {
-    if (pin > 2 || pin < 1) throw nts::Error("Invalid pin.");
-    return _pins[pin].second;
 }
 
 void nts::NotComponent::simulate(std::size_t tick) {

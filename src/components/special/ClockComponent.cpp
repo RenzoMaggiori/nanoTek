@@ -6,20 +6,12 @@
 */
 
 #include "ClockComponent.hpp"
-#include <iostream>
 
 nts::ClockComponent::ClockComponent()
 {
     this->getPins()[1].first = std::make_shared<nts::Tristate>(Tristate::Undefined);
     this->getPins()[1].second = nts::OUTPUT;
     _type = pinType::INPUT;
-}
-
-nts::pinType nts::ClockComponent::getPinType(std::size_t pin)
-{
-    if (pin != 1)
-        throw nts::Error("Invalid pin.");
-    return pinType::OUTPUT;
 }
 
 void nts::ClockComponent::simulate(std::size_t tick)
@@ -33,8 +25,9 @@ void nts::ClockComponent::simulate(std::size_t tick)
         *this->getPins()[1].first.get() = (state == nts::Tristate::True) ? nts::Tristate::False : nts::Tristate::True;
 }
 
-void nts::ClockComponent::setInput(nts::Tristate status)
+bool nts::ClockComponent::setInput(nts::Tristate status)
 {
     this->_availableTick = false;
     *this->getPins()[1].first.get() = status;
+    return true;
 }

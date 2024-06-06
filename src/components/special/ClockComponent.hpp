@@ -8,16 +8,15 @@
 #ifndef CLOCKCOMPONENT_HPP_
 #define CLOCKCOMPONENT_HPP_
 
-#include "../../AComponent.hpp"
+#include "AComponent.hpp"
 #include <cstddef>
 
 namespace nts {
     class ClockComponent: public AComponent {
         public:
             ClockComponent();
-            pinType getPinType(std::size_t pin) override;
             void simulate(std::size_t tick) override;
-            void setInput(nts::Tristate) override;
+            bool setInput(nts::Tristate) override;
         protected:
         private:
             bool _availableTick = true;

@@ -6,16 +6,10 @@
 */
 
 #include "InputComponent.hpp"
-#include <iostream>
 
 nts::InputComponent::InputComponent() {
     _pins[1] = std::make_pair(std::make_shared<nts::Tristate>(Tristate::Undefined), nts::OUTPUT);
     _type = pinType::INPUT;
-}
-
-nts::pinType nts::InputComponent::getPinType(std::size_t pin) {
-    if (pin != 1) throw nts::Error("Invalid pin.");
-    return pinType::OUTPUT;
 }
 
 void nts::InputComponent::simulate(std::size_t tick) {
@@ -23,7 +17,8 @@ void nts::InputComponent::simulate(std::size_t tick) {
     return;
 }
 
-void nts::InputComponent::setInput(nts::Tristate status)
+bool nts::InputComponent::setInput(nts::Tristate status)
 {
     *_pins[1].first.get() = status;
+    return true;
 }

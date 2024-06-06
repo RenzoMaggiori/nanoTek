@@ -8,14 +8,13 @@
 #ifndef FALSECOMPONENT_HPP_
 #define FALSECOMPONENT_HPP_
 
-#include "../../AComponent.hpp"
+#include "AComponent.hpp"
 
 namespace nts
 {
     class FalseComponent: public AComponent{
         public:
             FalseComponent();
-            pinType getPinType(std::size_t pin) override;
             void simulate(std::size_t tick) override;
         protected:
         private:
