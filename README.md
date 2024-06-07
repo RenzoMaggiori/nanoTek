@@ -44,6 +44,7 @@ output(s):
 
 NanoTekSpice adheres to technical considerations, including the implementation of the `IComponent` interface, creation of new `IComponent` instances via factory methods, and proper handling of pointers and references to component classes.
 
-## License
+## Authors
 
-NanoTekSpice was developed by [Renzo Maggiori](https://github.com/RenzoMaggiori) and [Gonzalo Larroya](https://github.com/G0nzal0zz). Feel free to use, modify, and distribute it.
+| [<img src="https://github.com/RenzoMaggiori.png?size=85" width=85><br><sub>Renzo Maggiori</sub>](https://github.com/RenzoMaggiori) | [<img src="https://github.com/G0nzal0zz.png?size=85" width=85><br><sub>Gonzalo Larroya</sub>](https://github.com/G0nzal0zz)
+|:---:|:---:|
